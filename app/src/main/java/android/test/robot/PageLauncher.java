@@ -1,5 +1,7 @@
 package android.test.robot;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,15 +28,13 @@ public class PageLauncher extends AppCompatActivity {
         RadioButton button2 = (RadioButton) findViewById(R.id.radio2);
         int idB2 = button2.getId();
 
-        if (checked == idB1) {
+        if (checked == idB1)
             sexe = "Homme";
-            button2.setEnabled(false);
-        }
 
-        if (checked == idB2) {
+        if (checked == idB2)
             sexe = "Femme";
-        }
 
-
+        Intent i = new Intent(PageLauncher.this, MainActivity.class);
+        startActivity(i);
     }
 }
