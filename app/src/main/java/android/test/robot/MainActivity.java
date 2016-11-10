@@ -1,7 +1,9 @@
 package android.test.robot;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,4 +23,9 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String stringFromJNI();
+
+    public void pageRec(View view) {
+        Intent i = new Intent(MainActivity.this, PageMic.class);
+        startActivity(i);
+    }
 }

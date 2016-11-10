@@ -12,10 +12,10 @@
         android:layout_width="fill_parent"
         android:layout_height="300dp">
         <pl.droidsonroids.gif.GifTextView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/giphy"
-            />
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/giphy"
+        />
     </LinearLayout>
 
     <LinearLayout
@@ -30,7 +30,8 @@
             android:layout_height="100dp"
             android:layout_marginLeft="130dp"
             android:layout_gravity="center"
-            android:background="@drawable/recbutton" />
+            android:background="@drawable/recbutton"
+            android:onClick="pageRec"/>
 
     </LinearLayout>
 
