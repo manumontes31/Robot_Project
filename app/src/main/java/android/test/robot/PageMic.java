@@ -14,6 +14,7 @@ public class PageMic extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mic);
         GifTextView view = (GifTextView) findViewById(R.id.micro);

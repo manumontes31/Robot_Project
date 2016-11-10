@@ -2,4 +2,7 @@
     <string name="app_name">ROBOT</string>
     <string name="Rec">REC</string>
     <string name="View">VIEW</string>
+    <string name="boutonH">Homme</string>
+    <string name="boutonF">Femme</string>
+    <string name="boutonV">Valider</string>
 </resources>

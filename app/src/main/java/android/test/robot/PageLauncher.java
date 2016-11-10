@@ -1,6 +1,7 @@
 package android.test.robot;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,9 @@ public class PageLauncher extends AppCompatActivity {
     public void saveSetting(View view) {
         String sexe;
 
+        MediaPlayer mph = MediaPlayer.create(this,R.raw.pere);
+        MediaPlayer mpf = MediaPlayer.create(this,R.raw.maitre);
+
         RadioGroup group_radio = (RadioGroup) findViewById(R.id.group_radio);
         int checked = group_radio.getCheckedRadioButtonId();
 
@@ -27,13 +31,19 @@ public class PageLauncher extends AppCompatActivity {
         RadioButton button2 = (RadioButton) findViewById(R.id.radio2);
         int idB2 = button2.getId();
 
-        if (checked == idB1)
+        if (checked == idB1) {
             sexe = "Homme";
+            mph.start();
+        }
 
-        if (checked == idB2)
+        if (checked == idB2) {
             sexe = "Femme";
+            mpf.start();
+        }
 
-        Intent i = new Intent(PageLauncher.this, MainActivity.class);
-        startActivity(i);
+        if((!mph.isPlaying()) || (!mpf.isPlaying())) {
+            Intent i = new Intent(PageLauncher.this, MainActivity.class);
+            startActivity(i);
+        }
     }
 }

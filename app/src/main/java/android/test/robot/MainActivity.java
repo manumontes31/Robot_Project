@@ -1,6 +1,7 @@
 package android.test.robot;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,12 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mp = MediaPlayer.create(this, R.raw.imperial_march);
+        mp.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -27,5 +32,6 @@ public class MainActivity extends AppCompatActivity {
     public void pageRec(View view) {
         Intent i = new Intent(MainActivity.this, PageMic.class);
         startActivity(i);
+        mp.stop();
     }
 }
