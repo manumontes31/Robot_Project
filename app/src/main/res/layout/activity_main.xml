@@ -30,7 +30,7 @@
                 android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
-                android:background="@drawable/recbutton"
+                android:background="@drawable/test"
                 />
         </RelativeLayout>
     </LinearLayout>

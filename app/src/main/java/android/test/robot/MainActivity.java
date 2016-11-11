@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(View v, MotionEvent event) {
                         switch(event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                v.setBackgroundResource(R.drawable.recbuttonpressed);
+                                v.setBackgroundResource(R.drawable.test2);
                                 break;
                             case MotionEvent.ACTION_UP:
-                                v.setBackgroundResource(R.drawable.recbutton);
+                                v.setBackgroundResource(R.drawable.test);
                                 Intent i = new Intent(MainActivity.this, PageMic.class);
                                 startActivity(i);
                                 mp.stop();
