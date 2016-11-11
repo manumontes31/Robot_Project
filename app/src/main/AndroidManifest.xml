@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".PageMic">
@@ -25,6 +25,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".preference"></activity>
     </application>
 
 </manifest>
