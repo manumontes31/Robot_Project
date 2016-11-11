@@ -19,7 +19,7 @@
 
 
 void recoVocale() {
-    std::vector<std::string> vocabulaire;
+    /*std::vector<std::string> vocabulaire;
 
     vocabulaire.push_back("arretetoi");
     vocabulaire.push_back("atterrissage");
@@ -35,6 +35,6 @@ void recoVocale() {
     vocabulaire.push_back("tournedroite");
     vocabulaire.push_back("tournegauche");
 
-    std::string chemin= "corpus/dronevolant_nonbruite/" ;
+    std::string chemin= "corpus/dronevolant_nonbruite/" ;*/
 
 }

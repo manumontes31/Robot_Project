@@ -17,8 +17,5 @@
             android:onClick="test"
             android:id="@+id/micro"
             />
-
     </RelativeLayout>
-
-
 </RelativeLayout>
