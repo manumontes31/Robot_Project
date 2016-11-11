@@ -44,6 +44,7 @@ public class PageLauncher extends AppCompatActivity {
         if((!mph.isPlaying()) || (!mpf.isPlaying())) {
             Intent i = new Intent(PageLauncher.this, MainActivity.class);
             startActivity(i);
+           // finish();
         }
     }
 }

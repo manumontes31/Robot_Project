@@ -31,9 +31,8 @@
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
                 android:background="@drawable/recbutton"
-                android:onClick="pageRec"/>
+                />
         </RelativeLayout>
-
     </LinearLayout>
 
 </RelativeLayout>

@@ -5,12 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
 
-    <pl.droidsonroids.gif.GifTextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgroundmic"
-        android:id="@+id/micro"
-        android:onClick="recfunction"
-        />
+        >
+
+        <pl.droidsonroids.gif.GifTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backgroundmic"
+            android:onClick="test"
+            android:id="@+id/micro"
+            />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
