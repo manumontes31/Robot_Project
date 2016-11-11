@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +31,25 @@ public class MainActivity extends AppCompatActivity {
     public native String stringFromJNI();
 
     public void pageRec(View view) {
-        Intent i = new Intent(MainActivity.this, PageMic.class);
-        startActivity(i);
-        mp.stop();
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setPressed(true);
+                        v.setBackgroundResource(R.drawable.recbuttonpressed);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setBackgroundResource(R.drawable.recbutton);
+                        Intent i = new Intent(MainActivity.this, PageMic.class);
+                        startActivity(i);
+                        mp.stop();
+                        v.setPressed(false);
+                        break;
+                }
+                return false;
+            }
+        });
+
     }
 }

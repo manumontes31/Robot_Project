@@ -17,16 +17,17 @@ public class PageMic extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mic);
-        GifTextView view = (GifTextView) findViewById(R.id.micro);
+    }
 
+    public void recfunction(View view) {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
-                    case MotionEvent.ACTION_BUTTON_PRESS:
+                    case MotionEvent.ACTION_DOWN:
                         v.setBackgroundResource(R.drawable.mic);
                         break;
-                    case MotionEvent.ACTION_BUTTON_RELEASE:
+                    case MotionEvent.ACTION_UP:
                         v.setPressed(false);
                         v.setBackgroundResource(R.drawable.backgroundmic);
                         break;
