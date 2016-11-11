@@ -14,11 +14,12 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
-    MediaPlayer mp;
+    MediaPlayer mp,mp3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mp = MediaPlayer.create(this, R.raw.imperial_march);
+        mp3 = MediaPlayer.create(this,R.raw.chewbacca);
         mp.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -33,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
                                 v.setBackgroundResource(R.drawable.test2);
                                 break;
                             case MotionEvent.ACTION_UP:
+                                mp.stop();
+                                mp3.start();
                                 v.setBackgroundResource(R.drawable.test);
                                 Intent i = new Intent(MainActivity.this, PageMic.class);
                                 startActivity(i);
-                                mp.stop();
                                 break;
                         }
                         return false;
