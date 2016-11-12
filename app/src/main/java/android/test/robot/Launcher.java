@@ -15,10 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class Launcher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,8 +36,16 @@ public class Launcher extends AppCompatActivity
 
         mDrawerList = (ListView)findViewById(R.id.navList);
         addDrawerItems();
-    }
 
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(Launcher.this, preference.class);
+                startActivity(i);
+                Toast.makeText(Launcher.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void addDrawerItems() {
         String[] osArray = { "Préférence" };
