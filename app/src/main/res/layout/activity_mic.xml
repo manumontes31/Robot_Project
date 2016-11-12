@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@drawable/backgroundmic">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +14,6 @@
         <pl.droidsonroids.gif.GifTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/backgroundmic"
             android:onClick="test"
             android:id="@+id/micro"
             />
