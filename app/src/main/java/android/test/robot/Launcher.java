@@ -22,8 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class Launcher extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Launcher extends AppCompatActivity {
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -34,28 +33,22 @@ public class Launcher extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher_main);
 
-        mDrawerList = (ListView)findViewById(R.id.navList);
-        addDrawerItems();
+        //mDrawerList = (ListView)findViewById(R.id.navList);
+        //addDrawerItems();
 
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(Launcher.this, preference.class);
                 startActivity(i);
-                Toast.makeText(Launcher.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private void addDrawerItems() {
         String[] osArray = { "Préférence" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
     }
 
 
@@ -87,7 +80,12 @@ public class Launcher extends AppCompatActivity
         if((!mph.isPlaying()) || (!mpf.isPlaying())) {
             Intent i = new Intent(Launcher.this, MainActivity.class);
             startActivity(i);
-            // finish();
         }
     }
+
+    public void preference(View view) {
+        Intent i = new Intent(Launcher.this, preference.class);
+        startActivity(i);
+    }
+
 }

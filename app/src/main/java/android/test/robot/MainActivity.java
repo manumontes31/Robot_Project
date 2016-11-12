@@ -60,4 +60,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public native String stringFromJNI();
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        mp.stop();
+    }
+
 }
