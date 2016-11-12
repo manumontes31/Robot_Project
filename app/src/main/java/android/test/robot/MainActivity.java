@@ -2,6 +2,7 @@ package android.test.robot;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         v.setOnTouchListener(
                 new View.OnTouchListener() {
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
+                    public boolean onTouch(final View v, MotionEvent event) {
                         switch(event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
                                 v.setBackgroundResource(R.drawable.test2);
@@ -36,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
                             case MotionEvent.ACTION_UP:
                                 mp.stop();
                                 mp3.start();
-                                v.setBackgroundResource(R.drawable.test);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable(){
+                                    @Override
+                                    public void run(){
+                                        v.setBackgroundResource(R.drawable.test);
+                                    }
+                                }, 3000);
                                 Intent i = new Intent(MainActivity.this, PageMic.class);
                                 startActivity(i);
                                 break;
