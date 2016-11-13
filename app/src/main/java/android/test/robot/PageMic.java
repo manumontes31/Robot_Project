@@ -30,10 +30,6 @@ public class PageMic extends AppCompatActivity {
     private int bufferSize = 0;
     private Thread recordingThread = null;
     private boolean isRecording = false;
-    //Complex[] fftTempArray;
-    //Complex[] fftArray;
-    //int[] bufferData;
-    //int bytesRecorded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +37,10 @@ public class PageMic extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mic);
 
-        //Initialisation buffer pour l'enregistrement
         bufferSize = AudioRecord.getMinBufferSize
                 (RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING) * 3;
 
-        audioData = new short[bufferSize]; //short array that pcm data is put into.
+        audioData = new short[bufferSize];
 
         View v = findViewById(R.id.micro);
         v.setOnTouchListener(
@@ -54,11 +49,11 @@ public class PageMic extends AppCompatActivity {
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            //startRecording();
+                            startRecording();
                             v.setBackgroundResource(R.drawable.mic);
                             break;
                         case MotionEvent.ACTION_UP:
-                            //stopRecording();
+                            stopRecording();
                             break;
                     }
                     return false;
@@ -131,9 +126,6 @@ public class PageMic extends AppCompatActivity {
         if (null != os) {
             while(isRecording) {
                 read = recorder.read(data, 0, bufferSize);
-                if (read > 0){
-                    //
-                }
 
                 if (AudioRecord.ERROR_INVALID_OPERATION != read) {
                     try {
@@ -211,7 +203,7 @@ public class PageMic extends AppCompatActivity {
             long byteRate) throws IOException
     {
         byte[] header = new byte[44];
-        header[0] = 'R';  // RIFF/WAVE header
+        header[0] = 'R';
         header[1] = 'I';
         header[2] = 'F';
         header[3] = 'F';
@@ -223,15 +215,15 @@ public class PageMic extends AppCompatActivity {
         header[9] = 'A';
         header[10] = 'V';
         header[11] = 'E';
-        header[12] = 'f';  // 'fmt ' chunk
+        header[12] = 'f';
         header[13] = 'm';
         header[14] = 't';
         header[15] = ' ';
-        header[16] = 16;  // 4 bytes: size of 'fmt ' chunk
+        header[16] = 16;
         header[17] = 0;
         header[18] = 0;
         header[19] = 0;
-        header[20] = 1;  // format = 1
+        header[20] = 1;
         header[21] = 0;
         header[22] = (byte) channels;
         header[23] = 0;
@@ -243,9 +235,9 @@ public class PageMic extends AppCompatActivity {
         header[29] = (byte) ((byteRate >> 8) & 0xff);
         header[30] = (byte) ((byteRate >> 16) & 0xff);
         header[31] = (byte) ((byteRate >> 24) & 0xff);
-        header[32] = (byte) (2 * 16 / 8);  // block align
+        header[32] = (byte) (2 * 16 / 8);
         header[33] = 0;
-        header[34] = RECORDER_BPP;  // bits per sample
+        header[34] = RECORDER_BPP;
         header[35] = 0;
         header[36] = 'd';
         header[37] = 'a';
