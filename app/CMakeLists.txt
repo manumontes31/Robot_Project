@@ -20,6 +20,7 @@ add_library( # Sets the name of the library.
              src/main/cpp/FFTReal.cpp
              src/main/cpp/libmfccOptim.cpp
              src/main/cpp/WavToMfcc.cpp
+             src/main/cpp/recoVocal.cpp
 
              # Associated headers in the same location as their source
              # file are automatically included.
