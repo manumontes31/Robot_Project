@@ -54,11 +54,11 @@ public class PageMic extends AppCompatActivity {
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            startRecording();
+                            //startRecording();
                             v.setBackgroundResource(R.drawable.mic);
                             break;
                         case MotionEvent.ACTION_UP:
-                            stopRecording();
+                            //stopRecording();
                             break;
                     }
                     return false;
@@ -257,5 +257,9 @@ public class PageMic extends AppCompatActivity {
         header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
 
         out.write(header, 0, 44);
+    }
+
+    public void test(View view) {
+        view.setBackgroundResource(R.drawable.backgroundmic);
     }
 }
