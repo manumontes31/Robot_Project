@@ -251,7 +251,7 @@ public class PageMic extends AppCompatActivity {
         out.write(header, 0, 44);
     }
 
-    public void test(View view) {
+    public void changerBackground(View view) {
         view.setBackgroundResource(R.drawable.backgroundmic);
     }
 }

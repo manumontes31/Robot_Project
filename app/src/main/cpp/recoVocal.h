@@ -1,8 +1,0 @@
-//
-// Created by Banniways on 08/11/2016.
-//
-
-#ifndef ROBOT_PROJECT_RECOVOCAL_H
-#define ROBOT_PROJECT_RECOVOCAL_H
-
-#endif //ROBOT_PROJECT_RECOVOCAL_H
