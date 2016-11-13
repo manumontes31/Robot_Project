@@ -5,11 +5,11 @@
 //#include "recoVocal.h"
 #include "dtw.h"
 #include <stdio.h>
-#include <stdlib.h
+#include <stdlib.h>
 #include <iostream>
 
 
-float *parametrisation(string basic_string);
+float *parametrisation(std::string basic_string);
 
 using namespace std;
 
@@ -53,7 +53,7 @@ string recoVocal(string genre, string filename){
     for (int j=0; j<tabMot->length(); j++){
         //min =  std::numeric_limits<int>::max(); //Infini
         nomfichier = ("chemin/"+locuteur+"/"+tabMot[j]+".wav");     //surrement à modifier
-        hypothese=new float(parametrisation(nomfichier));
+        //hypothese=new float(parametrisation(nomfichier));
         //resDTW = dtw(hypothese.lenght(), tabMotCherche.lenght(), truc_mfcc, hypothese, tabMotCherche);
 
         if(resDTW<min){     /* Il est ou le petit d?    */
