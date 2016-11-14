@@ -36,7 +36,8 @@ public class TestLauncher extends AppCompatActivity
             Intent i = new Intent(this, preference.class);
             startActivity(i);
         } else if (id == R.id.lecture) {
-
+            Intent i = new Intent(this, Lecture.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
