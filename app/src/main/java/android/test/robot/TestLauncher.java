@@ -1,8 +1,10 @@
 package android.test.robot;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,24 +53,21 @@ public class TestLauncher extends AppCompatActivity
         MediaPlayer mph = MediaPlayer.create(this,R.raw.pere);
         MediaPlayer mpf = MediaPlayer.create(this,R.raw.maitre);
 
-        RadioGroup group_radio = (RadioGroup) findViewById(R.id.group_radio);
-        int checked = group_radio.getCheckedRadioButtonId();
 
-        RadioButton button1 = (RadioButton) findViewById(R.id.radio1);
-        int idB1 = button1.getId();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        sexe = pref.getString("listSexe","");
 
-        RadioButton button2 = (RadioButton) findViewById(R.id.radio2);
-        int idB2 = button2.getId();
 
-        if (checked == idB1) {
-            sexe = "Homme";
+
+        if (sexe.equals("homme")) {
             mph.start();
         }
 
-        if (checked == idB2) {
-            sexe = "Femme";
+
+        if (sexe.equals("femme")) {
             mpf.start();
         }
+
 
         if((!mph.isPlaying()) || (!mpf.isPlaying())) {
             Intent i = new Intent(TestLauncher.this, MainActivity.class);

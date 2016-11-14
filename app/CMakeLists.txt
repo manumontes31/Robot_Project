@@ -20,6 +20,7 @@ add_library( # Sets the name of the library.
              src/main/cpp/FFTReal.cpp
              src/main/cpp/libmfccOptim.cpp
              src/main/cpp/WavToMfcc.cpp
+             src/main/cpp/recoVocal.cpp
 
              # Associated headers in the same location as their source
              # file are automatically included.
@@ -31,7 +32,8 @@ add_library( # Sets the name of the library.
              src/main/cpp/dtw.h
              src/main/cpp/FFTReal.h
              src/main/cpp/libmfccOptim.h
-             src/main/cpp/WavToMfcc.h)
+             src/main/cpp/WavToMfcc.h
+             src/main/cpp/recoVocal.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because system libraries are included in the search path by

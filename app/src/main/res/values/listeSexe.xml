@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <array name="listesexe_fr">
-            <item> Homme </item>
-            <item> Femme </item>
+            <item>Homme</item>
+            <item>Femme</item>
         </array>
         <array name="listesexe">
-            <item> homme </item>
-            <item> femme </item>
+            <item>homme</item>
+            <item>femme</item>
         </array>
 </resources>
