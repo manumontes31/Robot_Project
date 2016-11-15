@@ -11,12 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
-import junit.framework.Test;
-
-public class TestLauncher extends AppCompatActivity
+public class Launcher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -37,10 +33,7 @@ public class TestLauncher extends AppCompatActivity
         if (id == R.id.preference) {
             Intent i = new Intent(this, preference.class);
             startActivity(i);
-        } else if (id == R.id.lecture) {
-            Intent i = new Intent(this, Lecture.class);
-            startActivity(i);
-        }
+        } // else if ..
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -53,24 +46,19 @@ public class TestLauncher extends AppCompatActivity
         MediaPlayer mph = MediaPlayer.create(this,R.raw.pere);
         MediaPlayer mpf = MediaPlayer.create(this,R.raw.maitre);
 
-
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         sexe = pref.getString("listSexe","");
-
-
 
         if (sexe.equals("homme")) {
             mph.start();
         }
 
-
         if (sexe.equals("femme")) {
             mpf.start();
         }
 
-
         if((!mph.isPlaying()) || (!mpf.isPlaying())) {
-            Intent i = new Intent(TestLauncher.this, MainActivity.class);
+            Intent i = new Intent(Launcher.this, MainActivity.class);
             startActivity(i);
         }
     }

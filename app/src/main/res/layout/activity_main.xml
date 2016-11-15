@@ -30,7 +30,7 @@
                 android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
-                android:background="@drawable/test"
+                android:background="@drawable/blackstar"
                 />
         </RelativeLayout>
     </LinearLayout>

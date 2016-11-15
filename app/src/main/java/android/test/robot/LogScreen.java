@@ -8,7 +8,7 @@ import android.os.Bundle;
  * Created by Manu on 14/11/2016.
  */
 
-public class SplashScreen extends Activity {
+public class LogScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class SplashScreen extends Activity {
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    Intent intent = new Intent(SplashScreen.this,TestLauncher.class);
+                    Intent intent = new Intent(LogScreen.this,Launcher.class);
                     startActivity(intent);
                 }
             }

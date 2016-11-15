@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onTouch(final View v, MotionEvent event) {
                         switch(event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                v.setBackgroundResource(R.drawable.test2);
+                                v.setBackgroundResource(R.drawable.explode);
                                 break;
                             case MotionEvent.ACTION_UP:
                                 mp.stop();
@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
                                 handler.postDelayed(new Runnable(){
                                     @Override
                                     public void run(){
-                                        v.setBackgroundResource(R.drawable.test);
+                                        v.setBackgroundResource(R.drawable.blackstar);
                                     }
                                 }, 3000);
-                                Intent i = new Intent(MainActivity.this, PageMic.class);
+                                Intent i = new Intent(MainActivity.this, Micro.class);
                                 startActivity(i);
                                 break;
                         }
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         mp.stop();
     }
 

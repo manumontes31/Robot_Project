@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">ROBOT</string>
-    <string name="Rec">REC</string>
-    <string name="View">VIEW</string>
+    <string name="app_name">Dark Rec</string>
     <string name="boutonH">Homme</string>
     <string name="boutonF">Femme</string>
     <string name="boutonV">CONTINUER\nVERS\nAPPLICATION</string>
@@ -12,11 +10,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_test_launcher">TestLauncher</string>
-    <string name="title_activity_lecture">Lecture</string>
-
-    <string name="boutonChewbacca">Chewbacca</string>
-    <string name="boutonIMarch">La Marche Impériale</string>
-    <string name="boutonMaitre">Que puis-je faire pour vous, Maître ?</string>
-    <string name="boutonPere">Je suis … Ton Père !</string>
-    <string name="musiques_de_l_app">Musiques de l\'app</string>
+    <string name="pr_f_rence">Préférence</string>
+    <string name="a_propos">A propos</string>
+    <string name="mcs_project">MCS Project</string>
+    <string name="blanchet_franco_karouach_montes">Blanchet Franco Karouach Montes</string>
 </resources>
