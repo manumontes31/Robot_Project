@@ -11,9 +11,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class Launcher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String sexe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,12 @@ public class Launcher extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        sexe = pref.getString("listSexe","");
+
+        TextView text = (TextView) findViewById(R.id.textlauncher);
+        text.setText("Vous êtes connecté en tant que " + sexe);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -33,6 +42,7 @@ public class Launcher extends AppCompatActivity
         if (id == R.id.preference) {
             Intent i = new Intent(this, preference.class);
             startActivity(i);
+            finish();
         } // else if ..
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -41,8 +51,6 @@ public class Launcher extends AppCompatActivity
     }
 
     public void saveSetting(View view) {
-        String sexe;
-
         MediaPlayer mph = MediaPlayer.create(this,R.raw.pere);
         MediaPlayer mpf = MediaPlayer.create(this,R.raw.maitre);
 

@@ -4,6 +4,7 @@
     <PreferenceCategory android:title="Sexe">
         <ListPreference
             android:key="listSexe"
+            android:id="@id/prefsexe"
             android:dialogTitle="Choisissez votre sexe"
             android:entries="@array/listesexe_fr"
             android:entryValues="@array/listesexe"
