@@ -20,6 +20,25 @@ float distance(float* c_k, float* c_unk, int indicei, int indicej) {
     return(abs(c_unk[indicej] - c_k[indicei]));
 }
 
+float distance_vect(float* c_k, float* c_unk, int indicei, int indicej, int dim_mfcc) {
+    float d = 0;
+	int i;
+
+    float x[dim_mfcc];
+    float y[dim_mfcc];
+
+	for (i = 0 ; i < dim_mfcc ; i++)
+		x[i] = c_k[indicei + dim_mfcc*i];
+
+	for (i = 0 ; i < dim_mfcc ; i++)
+		y[i] = c_unk[indicej + dim_mfcc*i];
+
+    for (i = 0 ; i < dim_mfcc; i++)
+        d = d + pow((x[i] - y[i]),2);
+    
+    return(sqrt(d));
+}
+
 float min(float a, float b, float c) {
     if ( a < b ) {
         if ( a < c ) {
@@ -70,7 +89,7 @@ float dtw(int n_ck, int n_cunk, int dim_mfcc, float* c_k, float* c_unk) {
 
     for (int i = 1; i < n_cunk+1; i++) {
         for (int j = 1; j < n_ck+1; j++) {
-            dist = distance(c_unk,c_k,i-1,j-1);
+            dist = distance_vect(c_unk,c_k,i-1,j-1,dim_mfcc);
             v1 = matriceAux[i-1][j] + w0*dist;
             v2 = matriceAux[i-1][j-1] + w1*dist;
             v3 = matriceAux[i][j-1] + w2*dist;
@@ -82,15 +101,15 @@ float dtw(int n_ck, int n_cunk, int dim_mfcc, float* c_k, float* c_unk) {
     return((matriceAux[n_cunk][n_ck])/(n_ck+n_cunk));
 }
 
-/*
+
 int main () {
     float c_k[9] = {-2,10,-10,15,-13,20,-5,14,2};
     float c_unk[6] = {3,-13,14,-7,9,-2};
 
-    float result = dtw(9,6,1,c_k,c_unk);
+
+   float result = dtw(9,6,3,c_k,c_unk);
 
     std:cout << "d = " << result << std::endl;
 
     return(0);
 }
-*/
