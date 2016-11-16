@@ -8,17 +8,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <limits>
 
 
-float *parametrisation(std::string basic_string);
+
 
 using namespace std;
 
 char* recoVocal(char* genre, char* filename){
 
-    std::string tabMot[] = {"arretetoi", "atterrissage", "avance", "decollage", "droite", "etatdurgence", "faisunflip", "gauche", "plusbas", "plushaut", "recule", "tournedroite", "tournegauche"};
+    char tabMot[] = {'arretetoi', 'atterrissage', 'avance', 'decollage', 'droite', 'etatdurgence', 'faisunflip', 'gauche', 'plusbas', 'plushaut', 'recule', 'tournedroite', 'tournegauche'};
 
-    string *tabHypo = NULL;
 
     float* hypothese = NULL;
     float  resDTW = NULL;
@@ -34,7 +34,7 @@ char* recoVocal(char* genre, char* filename){
     nameWavToMfc(filename, mfcName);
     //removeSilence(int16_t * x, int Nx, int16_t ** xFiltered, int * newLength, float threshold);
     /*  Parametrisation du mot cherché ???  */
-    //computeMFCC(bufferMotCherche, tailleBufferMC, int16_t *x, int Nx, w->frequency, int sample_length, int sample_step, int dim_mfcc, int num_filter);
+    //computeMFCC(bufferMotCherche, tailleBufferMC, int16_t *x, int Nx, w->frequency, 512, 256, 13, 26);
 
 
     /*  Initialisation du tableau des différents mots (est ce un homme ou une femme?)   */
@@ -45,44 +45,52 @@ char* recoVocal(char* genre, char* filename){
            tabHypo = new string ['V01', 'V02'];
        }*/
 
-    int min,i;
+    float min;
 
     int * matriceconfu;
     int tauxreco;
-    string locuteur, nomfichier;
+    char nomfichier;
     const char *indice;
 
     //  for(int i=0; i<tabHypo->length(); i++){
 
     /*  Initialisation à zero de la matrice confusion (2dimensions??)   */
-    for (int j=0; j<tabHypo->length(); j++){
+    /*for (int j=0; j<size_t(tabHypo); j++){
         matriceconfu[j]=0;
-    }
-    locuteur=tabHypo[i];
+    }*/
+    //locuteur = tabHypo[i];
 
     int truc_mfcc;
-    for (int j=0; j<tabMot->length(); j++){
-        //min =  std::numeric_limits<int>::max(); //Infini
-        nomfichier = ("chemin/"+locuteur+"/"+tabMot[j]+".wav");     //surrement à modifier
-        hypothese= parametrisation(nomfichier);
+    min=numeric_limits<float>::infinity();
+    for (int j=0; j<size_t(tabMot); j++){
+
+        nomfichier = ('../res/raw/Son_enregistre/FA01_'+tabMot[j]+'.wav');
+        //hypothese= parametrisation(nomfichier);
+
         resDTW = dtw(sizeof(hypothese), *tailleBufferMC, truc_mfcc, hypothese, *bufferMotCherche);
 
-        if(resDTW<min){     /* Il est ou le petit d?    */
+        /*  Chercher le mot qui a la distance la plus petite avec notre enregistrement  */
+        if(resDTW<min){
             min = resDTW;
-            indice = (char *) tabMot[j].c_str();
+            indice = (char *) tabMot[j];
         }
-        matriceconfu[j] = 1;
+        //matriceconfu[j] = 1;
 
     }
 
-    /*      Taux de reconnaissance ??? garder l'incide mini??     */
-
+    /* On renvoie le mot à la distance la plus petite   */
+    cout << min << endl;
     return (char *) (indice);
 
     //  }
 
 }
 
-float* parametrisation(string basic_string) {
-    return NULL;
+int main(){
+    char * mot;
+    mot = recoVocal("Homme", "../res/raw/Son_enregistre/FA01_avance.wav");
+    cout << "Le mot trouvé est : "<< mot << endl;
+
+    return(0);
 }
+
