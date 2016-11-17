@@ -1,3 +1,12 @@
+recoVocal.cpp
+        Détails
+Activité
+        Aucune activité enregistrée
+Recevez sur votre ordinateur des notifications relatives aux fichiers partagés et aux événements importants.
+ACTIVER
+
+        Nouveau Drive d'équipe
+
 //
 // Created by fanny on 13/11/2016.
 //
@@ -7,6 +16,7 @@
 #include "WavToMfcc.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <iostream>
 #include <limits>
 
@@ -15,26 +25,35 @@
 
 using namespace std;
 
-char* recoVocal(char* genre, char* filename){
+string recoVocal(string genre, string filename){
 
-    char tabMot[] = {'arretetoi', 'atterrissage', 'avance', 'decollage', 'droite', 'etatdurgence', 'faisunflip', 'gauche', 'plusbas', 'plushaut', 'recule', 'tournedroite', 'tournegauche'};
+    string  tabMot[] = {"arretetoi", "atterrissage", "avance", "decollage", "droite", "etatdurgence", "faisunflip", "gauche", "plusbas", "plushaut", "recule", "tournedroite", "tournegauche"};
 
+//	char * tabMot;
 
-    float* hypothese = NULL;
     float  resDTW = NULL;
 
-    /*      Cf WavToMfcc.h      */
-    wavfile* w;
-    FILE** f;
-    char* mfcName;
-    float** bufferMotCherche;
-    int* tailleBufferMC;
+    /*      Parametrisation filename      */
+    wavfile w;
+    FILE* f = NULL;
+    float* bufferMotCherche = NULL;
+    int tailleBufferMC = 0;
+    int16_t *data;
+    int sizeData;
 
-    wavRead(f, filename, w);
-    nameWavToMfc(filename, mfcName);
-    //removeSilence(int16_t * x, int Nx, int16_t ** xFiltered, int * newLength, float threshold);
-    /*  Parametrisation du mot cherché ???  */
-    //computeMFCC(bufferMotCherche, tailleBufferMC, int16_t *x, int Nx, w->frequency, 512, 256, 13, 26);
+    char* p = new char[filename.length()+1];
+    strcpy( p, filename.c_str());
+
+    wavRead(&f, p, &w);
+
+    sizeData= (w.bytes_in_data / sizeof(int16_t));
+    data = new int16_t[sizeData];
+
+    if (fread(&data[0], sizeof(int16_t), sizeData, f) <1 ){
+        fprintf(stderr, "Can't read input wav data %d\n", p);
+        exit(1);
+    }
+    computeMFCC(&bufferMotCherche, &tailleBufferMC, data, sizeData, w.frequency, 512, 256, 13, 26);
 
 
     /*  Initialisation du tableau des différents mots (est ce un homme ou une femme?)   */
@@ -47,10 +66,16 @@ char* recoVocal(char* genre, char* filename){
 
     float min;
 
-    int * matriceconfu;
-    int tauxreco;
-    char nomfichier;
-    const char *indice;
+    string  nomfichier;
+    string indice;
+
+    /*      Cf WavToMfcc.h      */
+    wavfile w2;
+    FILE* f2;
+    float* bufferMotCherche2 = NULL;
+    int tailleBufferMC2 = 0;
+    int16_t *data2;
+    int sizeData2;
 
     //  for(int i=0; i<tabHypo->length(); i++){
 
@@ -60,37 +85,64 @@ char* recoVocal(char* genre, char* filename){
     }*/
     //locuteur = tabHypo[i];
 
-    int truc_mfcc;
     min=numeric_limits<float>::infinity();
-    for (int j=0; j<size_t(tabMot); j++){
+    for (int j=0; j<tabMot->length(); j++){
 
-        nomfichier = ('../res/raw/Son_enregistre/FA01_'+tabMot[j]+'.wav');
-        //hypothese= parametrisation(nomfichier);
+        nomfichier = ("../res/raw/dronevolant_nonbruite/F01_"+tabMot[j]+".wav");
+        //nomfichier = ("./corpus/dronevolant_bruite/M01_"+tabMot[j]+".wav");
 
-        resDTW = dtw(sizeof(hypothese), *tailleBufferMC, truc_mfcc, hypothese, *bufferMotCherche);
+        /*      Parametrisation des mots    */
+        p = new char[nomfichier.length()+1];
+        strcpy( p, nomfichier.c_str());
+
+        wavRead(&f2, p, &w2);
+
+        sizeData2= (w2.bytes_in_data / sizeof(int16_t));
+        data2 = new int16_t[sizeData2];
+
+        if (fread(&data2[0], sizeof(int16_t), sizeData2, f2) < 1){
+            fprintf(stderr, "Cann't read input wav data %s\n", &p);
+            exit(1);
+        }
+
+        delete[] p;
+
+        computeMFCC(&bufferMotCherche2, &tailleBufferMC2, data2, sizeData2, w2.frequency, 512, 256, 13, 26);
+
+
+        /*      Récupération du résultat du dtw     */
+
+        resDTW = dtw(tailleBufferMC2, tailleBufferMC, 13, bufferMotCherche2, bufferMotCherche);
+
+        cout << "Mot : "<<tabMot[j]<< "		resDTW : "<<resDTW<<endl;
 
         /*  Chercher le mot qui a la distance la plus petite avec notre enregistrement  */
         if(resDTW<min){
             min = resDTW;
-            indice = (char *) tabMot[j];
+            cout<< "OKmin  "<< j << endl;
+            indice = tabMot[j];
         }
+        else {
+            cout<< "KOmin  "<< j << endl;
+        }
+
         //matriceconfu[j] = 1;
 
     }
-
+    cout<< "OK" << endl;
     /* On renvoie le mot à la distance la plus petite   */
     cout << min << endl;
-    return (char *) (indice);
+    return (indice);
 
     //  }
 
 }
 
 int main(){
-    char * mot;
-    mot = recoVocal("Homme", "../res/raw/Son_enregistre/FA01_avance.wav");
+    string mot;
+    mot = recoVocal("Homme", "../res/raw/dronevolant_nonbruite/F01_avance.wav");
+    //mot = recoVocal("Homme", "./M01_arretetoi.wav");
     cout << "Le mot trouvé est : "<< mot << endl;
 
     return(0);
 }
-

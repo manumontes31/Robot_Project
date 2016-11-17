@@ -28,10 +28,10 @@ float distance_vect(float* c_k, float* c_unk, int indicei, int indicej, int dim_
     float y[dim_mfcc];
 
 	for (i = 0 ; i < dim_mfcc ; i++)
-		x[i] = c_k[indicei + dim_mfcc*i];
+		x[i] = c_k[i + dim_mfcc*indicei];
 
 	for (i = 0 ; i < dim_mfcc ; i++)
-		y[i] = c_unk[indicej + dim_mfcc*i];
+		y[i] = c_unk[i + dim_mfcc*indicej];
 
     for (i = 0 ; i < dim_mfcc; i++)
         d = d + pow((x[i] - y[i]),2);
@@ -101,7 +101,7 @@ float dtw(int n_ck, int n_cunk, int dim_mfcc, float* c_k, float* c_unk) {
     return((matriceAux[n_cunk][n_ck])/(n_ck+n_cunk));
 }
 
-
+/*
 int main () {
     float c_k[9] = {-2,10,-10,15,-13,20,-5,14,2};
     float c_unk[6] = {3,-13,14,-7,9,-2};
@@ -113,3 +113,4 @@ int main () {
 
     return(0);
 }
+*/
