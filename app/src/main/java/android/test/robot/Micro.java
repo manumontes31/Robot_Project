@@ -1,13 +1,18 @@
 package android.test.robot;
 
+import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -253,5 +258,20 @@ public class Micro extends AppCompatActivity {
 
     public void changerBackground(View view) {
         view.setBackgroundResource(R.drawable.backgroundmic);
+        new AlertDialog.Builder(this)
+                .setTitle("Votre ordre")
+                .setMessage("")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(R.drawable.blackstar)
+                .show();
     }
 }
