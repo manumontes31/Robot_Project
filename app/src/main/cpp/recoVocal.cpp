@@ -31,6 +31,14 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     int16_t *data;
     int sizeData;
 
+    // Step 1: Convert the JNI String (jstring) into C-String (char*)
+    /* TODO : Je pense que c'est ici que ça plante ! J'avais zappé de mettre "jstring" dans les paramètres de la fonction
+     * du coup il faut transformer ce jstring en char * avec la fonction juste en dessous ! puis il y a rien d'autre à faire ... normalement
+
+    const char *file = (env)->GetStringUTFChars(filename, NULL);
+    */
+
+    /* Du coup au lieu de mettre filename on met file*/
     char* p = new char[filename.length()+1];
     strcpy( p, filename.c_str());
 
@@ -57,6 +65,7 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     float min;
 
     string  nomfichier;
+    /* TODO: Ici également il faut que "indice" soit un char* car la fonction NewStringUTF() dans le return transforme un char* en jstring */
     string indice;
 
     /*      Cf WavToMfcc.h      */
@@ -120,7 +129,7 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     if (min > 6.5){
         indice = "pas trouvé";
     }
-    return env->NewStringUTF(indice.c_str());
+    return env->NewStringUTF(file);
 
     //  }
 
