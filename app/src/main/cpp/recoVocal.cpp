@@ -88,7 +88,7 @@ string recoVocal(string genre, string filename){
     min=numeric_limits<float>::infinity();
     for (int j=0; j<tabMot->length(); j++){
 
-        nomfichier = ("../res/raw/dronevolant_nonbruite/F01_"+tabMot[j]+".wav");
+        nomfichier = ("../res/raw/M01_"+tabMot[j]+".wav");
         //nomfichier = ("./corpus/dronevolant_bruite/M01_"+tabMot[j]+".wav");
 
         /*      Parametrisation des mots    */
@@ -101,7 +101,7 @@ string recoVocal(string genre, string filename){
         data2 = new int16_t[sizeData2];
 
         if (fread(&data2[0], sizeof(int16_t), sizeData2, f2) < 1){
-            fprintf(stderr, "Cann't read input wav data %s\n", &p);
+            fprintf(stderr, "Can't read input wav data %s\n", &p);
             exit(1);
         }
 
@@ -114,30 +114,28 @@ string recoVocal(string genre, string filename){
 
         resDTW = dtw(tailleBufferMC2, tailleBufferMC, 13, bufferMotCherche2, bufferMotCherche);
 
-        cout << "Mot : "<<tabMot[j]<< "		resDTW : "<<resDTW<<endl;
+        cout << "Mot : "<<tabMot[j]<< "		Distance avec le mot cherché : "<<resDTW<<endl;
 
         /*  Chercher le mot qui a la distance la plus petite avec notre enregistrement  */
         if(resDTW<min){
             min = resDTW;
-            cout<< "OKmin  "<< j << endl;
             indice = tabMot[j];
-        }
-        else {
-            cout<< "KOmin  "<< j << endl;
         }
 
         //matriceconfu[j] = 1;
 
     }
-    cout<< "OK" << endl;
     /* On renvoie le mot à la distance la plus petite   */
-    cout << min << endl;
+    cout <<"Minimum trouvé : "<< min << endl;
+    if (min > 6.5){
+        indice = "pas trouvé";
+    }
     return (indice);
 
     //  }
 
 }
-
+/*
 int main(){
     string mot;
     mot = recoVocal("Homme", "../res/raw/dronevolant_nonbruite/F01_avance.wav");
@@ -146,3 +144,4 @@ int main(){
 
     return(0);
 }
+*/
