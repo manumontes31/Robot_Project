@@ -1,11 +1,3 @@
-recoVocal.cpp
-        Détails
-Activité
-        Aucune activité enregistrée
-Recevez sur votre ordinateur des notifications relatives aux fichiers partagés et aux événements importants.
-ACTIVER
-
-        Nouveau Drive d'équipe
 
 //
 // Created by fanny on 13/11/2016.
