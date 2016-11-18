@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/pr_f_rence" />
         <item
-            android:id="@+id/lecture"
+            android:id="@+id/apropos"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/a_propos" />
     </group>

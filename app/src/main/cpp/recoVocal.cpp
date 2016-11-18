@@ -6,18 +6,16 @@
 //#include "recoVocal.h"
 #include "dtw.h"
 #include "WavToMfcc.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <iostream>
 #include <limits>
-
-
-
+#include <jni.h>
 
 using namespace std;
 
-string recoVocal(string genre, string filename){
+extern"C"
+
+jstring
+Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
 
     string  tabMot[] = {"arretetoi", "atterrissage", "avance", "decollage", "droite", "etatdurgence", "faisunflip", "gauche", "plusbas", "plushaut", "recule", "tournedroite", "tournegauche"};
 
@@ -80,7 +78,7 @@ string recoVocal(string genre, string filename){
     min=numeric_limits<float>::infinity();
     for (int j=0; j<tabMot->length(); j++){
 
-        nomfichier = ("../res/raw/M01_"+tabMot[j]+".wav");
+        nomfichier = ("../res/raw/m01_"+tabMot[j]+".wav");
         //nomfichier = ("./corpus/dronevolant_bruite/M01_"+tabMot[j]+".wav");
 
         /*      Parametrisation des mots    */
@@ -122,7 +120,7 @@ string recoVocal(string genre, string filename){
     if (min > 6.5){
         indice = "pas trouvé";
     }
-    return (indice);
+    return env->NewStringUTF(indice.c_str());
 
     //  }
 
@@ -131,7 +129,7 @@ string recoVocal(string genre, string filename){
 int main(){
     string mot;
     mot = recoVocal("Homme", "../res/raw/dronevolant_nonbruite/F01_avance.wav");
-    //mot = recoVocal("Homme", "./M01_arretetoi.wav");
+    //mot = recoVocal("Homme", "./m01_arretetoi.wav");
     cout << "Le mot trouvé est : "<< mot << endl;
 
     return(0);

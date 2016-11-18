@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:paddingLeft="20dp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_weight="40"
                 android:textColor="#fff"
                 android:id="@id/textlauncher"

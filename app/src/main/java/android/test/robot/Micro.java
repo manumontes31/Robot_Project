@@ -36,6 +36,10 @@ public class Micro extends AppCompatActivity {
     private Thread recordingThread = null;
     private boolean isRecording = false;
 
+    static {
+        System.loadLibrary("recoVocal");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -258,20 +262,18 @@ public class Micro extends AppCompatActivity {
 
     public void changerBackground(View view) {
         view.setBackgroundResource(R.drawable.backgroundmic);
-        new AlertDialog.Builder(this)
+        System.out.println(recoVocal(Environment.getExternalStorageDirectory().getPath()+AUDIO_RECORDER_FILE_EXT_WAV));
+        /*new AlertDialog.Builder(this)
                 .setTitle("Votre ordre")
-                .setMessage("")
+                .setMessage(
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                     }
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
                 .setIcon(R.drawable.blackstar)
-                .show();
+                .show();*/
     }
+
+    public native String recoVocal(String filename);
 }
