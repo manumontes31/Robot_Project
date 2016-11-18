@@ -65,7 +65,6 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     float min;
 
     string  nomfichier;
-    /* TODO: Ici également il faut que "indice" soit un char* car la fonction NewStringUTF() dans le return transforme un char* en jstring */
     string indice;
 
     /*      Cf WavToMfcc.h      */
@@ -129,7 +128,7 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     if (min > 6.5){
         indice = "pas trouvé";
     }
-    return env->NewStringUTF(file);
+    return env->NewStringUTF(indice.c_str());
 
     //  }
 
