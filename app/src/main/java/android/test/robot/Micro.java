@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -262,17 +263,22 @@ public class Micro extends AppCompatActivity {
 
     public void changerBackground(View view) {
         view.setBackgroundResource(R.drawable.backgroundmic);
-        System.out.println(recoVocal(Environment.getExternalStorageDirectory().getPath()+AUDIO_RECORDER_FILE_EXT_WAV));
-        /*new AlertDialog.Builder(this)
+
+        //System.out.println(recoVocal(Environment.getExternalStorageDirectory().getPath()+AUDIO_RECORDER_FILE_EXT_WAV));
+       // System.out.println(Environment.getExternalStorageDirectory().getPath()+"/"+AUDIO_RECORDER_FOLDER);
+       // System.out.println(recoVocal(Environment.getExternalStorageDirectory().getPath()+"/"+AUDIO_RECORDER_FOLDER+"/"+AUDIO_RECORDER_FILE_EXT_WAV));
+
+
+        new AlertDialog.Builder(this)
                 .setTitle("Votre ordre")
-                .setMessage(
+                .setMessage(recoVocal(Environment.getExternalStorageDirectory().getPath()+"/"+AUDIO_RECORDER_FOLDER+"/"+AUDIO_RECORDER_FILE_EXT_WAV))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                     }
                 })
                 .setIcon(R.drawable.blackstar)
-                .show();*/
+                .show();
     }
 
     public native String recoVocal(String filename);

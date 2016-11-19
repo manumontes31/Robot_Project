@@ -9,13 +9,13 @@
 #include <stdlib.h>
 #include <limits>
 #include <jni.h>
-
+#include <android/log.h>
 using namespace std;
 
 extern"C"
 
 jstring
-Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
+Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , jstring filename){
 
     string  tabMot[] = {"arretetoi", "atterrissage", "avance", "decollage", "droite", "etatdurgence", "faisunflip", "gauche", "plusbas", "plushaut", "recule", "tournedroite", "tournegauche"};
 
@@ -31,26 +31,22 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     int16_t *data;
     int sizeData;
 
-    // Step 1: Convert the JNI String (jstring) into C-String (char*)
-    /* TODO : Je pense que c'est ici que ça plante ! J'avais zappé de mettre "jstring" dans les paramètres de la fonction
-     * du coup il faut transformer ce jstring en char * avec la fonction juste en dessous ! puis il y a rien d'autre à faire ... normalement
 
-    const char *file = (env)->GetStringUTFChars(filename, NULL);
-    */
+    const char *file = env->GetStringUTFChars(filename,JNI_FALSE);
 
-    /* Du coup au lieu de mettre filename on met file*/
-    char* p = new char[filename.length()+1];
-    strcpy( p, filename.c_str());
-
+    char* p = strdup(file);
     wavRead(&f, p, &w);
+
 
     sizeData= (w.bytes_in_data / sizeof(int16_t));
     data = new int16_t[sizeData];
 
-    if (fread(&data[0], sizeof(int16_t), sizeData, f) <1 ){
-        fprintf(stderr, "Can't read input wav data %d\n", p);
+
+    if (fread(&data[0], sizeof(int16_t), (size_t) sizeData, f) < 1 ){
+        fprintf(stderr, "Can't read input wav data %s\n", p);
         exit(1);
     }
+
     computeMFCC(&bufferMotCherche, &tailleBufferMC, data, sizeData, w.frequency, 512, 256, 13, 26);
 
 
@@ -83,23 +79,30 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
     }*/
     //locuteur = tabHypo[i];
 
+
     min=numeric_limits<float>::infinity();
+
     for (int j=0; j<tabMot->length(); j++){
 
-        nomfichier = ("../res/raw/m01_"+tabMot[j]+".wav");
-        //nomfichier = ("./corpus/dronevolant_bruite/M01_"+tabMot[j]+".wav");
+       // nomfichier = ("../res/raw/m01_"+tabMot[j]+".wav");
+        //nomfichier = ("./corpus/dronevolant_bruite/m01_"+tabMot[j]+".wav");
+        nomfichier = ("/storage/emulated/0/AudioRecorder/Ref/m01_"+tabMot[j]+".wav");
+
+
 
         /*      Parametrisation des mots    */
         p = new char[nomfichier.length()+1];
+
         strcpy( p, nomfichier.c_str());
 
         wavRead(&f2, p, &w2);
 
+
         sizeData2= (w2.bytes_in_data / sizeof(int16_t));
         data2 = new int16_t[sizeData2];
 
-        if (fread(&data2[0], sizeof(int16_t), sizeData2, f2) < 1){
-            fprintf(stderr, "Can't read input wav data %s\n", &p);
+        if (fread(&data2[0], sizeof(int16_t), (size_t) sizeData2, f2) < 1){
+            fprintf(stderr, "Can't read input wav data %s\n", p);
             exit(1);
         }
 
@@ -112,8 +115,8 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
 
         resDTW = dtw(tailleBufferMC2, tailleBufferMC, 13, bufferMotCherche2, bufferMotCherche);
 
-        cout << "Mot : "<<tabMot[j]<< "		Distance avec le mot cherché : "<<resDTW<<endl;
-
+       // cout << "Mot : "<<tabMot[j]<< "		Distance avec le mot cherché : "<<resDTW<<endl;
+        __android_log_print(ANDROID_LOG_INFO, "TEST", "TEST Mot : = %s - Distance avec le mot chercher = %f",tabMot[j].c_str(),resDTW);
         /*  Chercher le mot qui a la distance la plus petite avec notre enregistrement  */
         if(resDTW<min){
             min = resDTW;
@@ -123,11 +126,17 @@ Java_android_test_robot_Micro_recoVocal(JNIEnv *env, jobject , string filename){
         //matriceconfu[j] = 1;
 
     }
+
     /* On renvoie le mot à la distance la plus petite   */
-    cout <<"Minimum trouvé : "<< min << endl;
+    //cout <<"Minimum trouvé : "<< min << endl;
     if (min > 6.5){
         indice = "pas trouvé";
     }
+
+
+    env->ReleaseStringUTFChars(filename,file);
+
+    __android_log_print(ANDROID_LOG_INFO, "TEST", "TEST filename = %s",indice.c_str());
     return env->NewStringUTF(indice.c_str());
 
     //  }

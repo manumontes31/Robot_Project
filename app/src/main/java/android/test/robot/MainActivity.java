@@ -9,12 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
-
     MediaPlayer mp,mp3;
 
     @Override
